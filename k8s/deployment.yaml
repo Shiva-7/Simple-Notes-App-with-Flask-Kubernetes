@@ -1,0 +1,21 @@
+# File: k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes-app
+  template:
+    metadata:
+      labels:
+        app: notes-app
+    spec:
+      containers:
+      - name: notes-container
+        image: notes-app:latest
+        imagePullPolicy: Never  # for local image with Minikube or Kind
+        ports:
+        - containerPort: 5000
