@@ -1,9 +1,9 @@
-# File: app.py
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import sqlite3
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)  # Enable CORS for all routes
 
 def init_db():
@@ -21,7 +21,8 @@ def init_db():
 
 @app.route('/')
 def home():
-    return "Notes API is running"
+    # Serve the index.html file from the static folder
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/notes', methods=['GET'])
 def get_notes():
